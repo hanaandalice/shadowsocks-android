@@ -10,6 +10,18 @@ setupCommon()
 android {
     namespace = "com.github.shadowsocks.plugin"
     lint.informational += "GradleDependency"
+
+    defaultConfig {
+        consumerProguardFiles("proguard-rules.pro")
+
+        externalNativeBuild.ndkBuild {
+//            version("24.0.8215888")
+            abiFilters("armeabi-v7a", "arm64-v8a", "x86")
+            arguments("-j${Runtime.getRuntime().availableProcessors()}")
+        }
+
+    }
+    externalNativeBuild.ndkBuild.path("src/main/jni/Android.mk")
 }
 
 dependencies {
